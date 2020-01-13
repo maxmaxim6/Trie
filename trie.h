@@ -14,10 +14,11 @@ typedef struct node
 }node;
 
 node* newNode();
-void addi ( node **head , char *str);
+void insert( node **head , char *str);
 void PrintAll(node **root,char *word ,int index);
 void PrintRev(node **root,char *word ,int index);
-bool cast(char * word);
+bool cast(char *word);
+bool checkEmpty(node **root);
 void frees(node **root);
 
 
