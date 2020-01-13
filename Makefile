@@ -5,7 +5,7 @@ main.o: main.c trie.h
 	$ gcc -Wall -c main.c
 
 trie.o: trie.c trie.h
-	$ gcc -Wall -c -trie.c 
+	$ gcc -Wall -c trie.c 
 
 
 .PHONY: clean all
