@@ -1,8 +1,6 @@
 #include <stdio.h>
-#include "trie.h"
 #include <stdlib.h>
-#include <stdbool.h>
-//#define NUM_LETTERS ((int)26)
+#include "trie.h"
 
 node* newNode()
 {
@@ -105,40 +103,8 @@ void PrintRev(node **root,char *word ,int index)
         }
     }
 }
-void PrintAll1(node **root,char *word ,int index) 
- {  
-    if ((*root)->end_string)
-    { 
-        int check=0;
-        for(int i= 0 ; i <NUM_LETTERS ; i++)
-        {
-            if((*root)->next_char[j]!=NULL)
-            {
-                check=1;
-            }
-        }
-        if (check)
-        {
-            *(word+index)='\0';
-            int i=0;
-            printf("%s",word);
-            printf("\t %d \n",(*root)->count);
-            free(*root);
-        }  
-    } 
-    int j; 
-    for (j = NUM_LETTERS-1; j >0 ; j--)  
-    {  
-        if((*root)->next_char[j]!=NULL)
-        {
-           *(word+index)=j+'a';
-            PrintAll(&((*root)->next_char[j]),word,index+1);
-        }
-    }
-    printf("%s",word);
-    //free(&((*root)->next_char[j]));
-}
-bool check(node **root)
+
+bool checkEmpty(node **root)
 {
     
     for(int i= 0 ; i <NUM_LETTERS ; i++)
@@ -150,18 +116,19 @@ bool check(node **root)
     }
     return true;
 }
-bool cast(char * word)
+
+bool cast(char *word)
 {
     int i=0;
     while (*(word+i)!='\0')
     {
-        if((*(word+i)<'a'  ||  *(word+i)>'z') && (*(word+i)<'A'  ||  (*word+i)>'Z')
+        if((*(word+i)<'a'  ||  *(word+i)>'z') && (*(word+i)<'A'  ||  *(word+i)>'Z'))
         {
             return false;
         }
-        if((*word+i)>='A'   &&  *(word+i)<='Z')
+        if(*(word+i)>='A'   &&  *(word+i)<='Z')
         {
-            (*word+i)=i-32;
+            *(word+i)=*(word+i)+32;
         }
         i++;
     }
@@ -174,15 +141,16 @@ void main()
 {
     char aa[100][100];
     node *root=newNode();
-    char a1[]="aab";
-    char a[] ="abc"; 
-    char b[] ="aa"; 
-    char c[] ="bac"; 
-    char d[] ="aaa"; 
-    char e[] ="ddd"; 
+    char a1[]="ab";
+    char a[] ="ala"; 
+    char b[] ="bcd"; 
+    char c[] ="alad"; 
+    char d[] ="ab"; 
+    char e[] ="ala"; 
     char f [] ="abca";
-    char t[5];
-
+    char t[10];
+    
+   
    insert(&root,a);
    insert(&root,b);
    insert(&root,c);
@@ -190,9 +158,8 @@ void main()
    insert(&root,e);
    insert(&root,f);
    insert(&root,a1); 
-   PrintAll1(&root,t,0); 
+   PrintAll(&root,t,0); 
    printf("\n");
-   //PrintAll1(&root,t,0); 
    frees(&root);
 
 
