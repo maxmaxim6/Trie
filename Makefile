@@ -1,18 +1,16 @@
-all: trie.o main.o trieD trie
+frequency: trie.o main.o
+	$ gcc -Wall -o frequency main.o trie.o
 
-trie.o:trie.c
-	$ gcc -Wall -c -fPIC $^
+main.o: main.c trie.h
+	$ gcc -Wall -c main.c
 
-main.o:main.c 
-	$ gcc -Wall -c $^ 
+trie.o: trie.c trie.h
+	$ gcc -Wall -c -trie.c 
 
-trieD:myBank.o
-	$ gcc -Wall -shared -o libtrie.so $^
 
-trie:main.o 
-	$ gcc -Wall main.o -L. -ltrie -o $@
+.PHONY: clean all
 
 clean:
-	$ rm trie *o 
+	$ rm -f *.o frequency
 
-.PHONY: trieD clean all
+all:frequency
