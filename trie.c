@@ -37,7 +37,6 @@ void PrintAll(node **root,char *word ,int index)
     if ((*root)->end_string)
     { 
         *(word+index)='\0';
-        int i=0;
         printf("%s",word);
         printf("\t %d \n",(*root)->count);
         (*root)->end_string =false;
@@ -137,31 +136,31 @@ bool cast(char *word)
 }
 
 
-void main()
-{
-    char aa[100][100];
-    node *root=newNode();
-    char a1[]="ab";
-    char a[] ="ala"; 
-    char b[] ="bcd"; 
-    char c[] ="alad"; 
-    char d[] ="ab"; 
-    char e[] ="ala"; 
-    char f [] ="abca";
-    char t[10];
+// void main()
+// {
+//     char aa[100][100];
+//     node *root=newNode();
+//     char a1[]="ab";
+//     char a[] ="ala"; 
+//     char b[] ="bcd"; 
+//     char c[] ="alad"; 
+//     char d[] ="ab"; 
+//     char e[] ="ala"; 
+//     char f [] ="abca";
+//     char t[10];
     
    
-   insert(&root,a);
-   insert(&root,b);
-   insert(&root,c);
-   insert(&root,d);
-   insert(&root,e);
-   insert(&root,f);
-   insert(&root,a1); 
-   PrintAll(&root,t,0); 
-   printf("\n");
-   frees(&root);
+//    insert(&root,a);
+//    insert(&root,b);
+//    insert(&root,c);
+//    insert(&root,d);
+//    insert(&root,e);
+//    insert(&root,f);
+//    insert(&root,a1); 
+//    PrintAll(&root,t,0); 
+//    printf("\n");
+//    frees(&root);
 
 
 
-}
+// }
