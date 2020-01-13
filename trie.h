@@ -4,7 +4,6 @@
 
 
 #define NUM_LETTERS 26
-extern char Words[100][100];
 
 typedef struct node
 {
