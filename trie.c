@@ -1,15 +1,18 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "trie.h"
+
 
 node* newNode()
 {
     struct node *n=(node*)malloc(sizeof(node));
-    n->end_string=false;
-    n->count=0;
-    for(int i =0 ; i < NUM_LETTERS ; i++)
+    if(n)
     {
-        n->next_char[i]=NULL;
+        n->end_string=false;
+        n->count=0;
+        for(int i =0 ; i < NUM_LETTERS ; i++)
+        {
+            n->next_char[i]=NULL;
+        }
     }
     return n;
 }
@@ -17,19 +20,21 @@ node* newNode()
 void insert ( node **head , char *str)
 {
     int i=0;
-    struct node **cur=head;
+    node *cur=*head;
     while(*(str+i)!='\0')
     {
-        if((*cur)->next_char[*(str+i)-'a']==NULL)
+        if((cur)->next_char[*(str+i)-'a']==NULL)
         {
-            (*cur)->next_char[*(str+i)-'a']=newNode();       
+            (cur)->next_char[*(str+i)-'a']=newNode(); 
+            (cur)->ch=*(str+i);      
         }
-        cur=&((*cur)->next_char[*(str+i)-'a']);
+        cur=(cur)->next_char[*(str+i)-'a'];
         i++;   
         
     }
-    (*cur)->count++;
-    (*cur)->end_string=true;
+    (cur)->count++;
+    (cur)->end_string=true;
+
 }
 
 void PrintAll(node **root,char *word ,int index) 
@@ -37,9 +42,10 @@ void PrintAll(node **root,char *word ,int index)
     if ((*root)->end_string)
     { 
         *(word+index)='\0';
+        
         printf("%s",word);
         printf("\t %d \n",(*root)->count);
-        (*root)->end_string =false;
+        //(*root)->end_string =false;
     } 
   
     int j; 
@@ -66,31 +72,22 @@ void frees(node **root)
     free((*root)); 
 }
 
+
 void PrintRev(node **root,char *word ,int index) 
 {  
-    if ((*root)->end_string)
-    { 
-        int a=0;
-        for(int j= 0 ; j<NUM_LETTERS ; j++)
+    if(checkEmpty(&(*root)))
+    {
+        *(word+index)='\0';
+        if((*root)->end_string)
         {
-            if((*root)->next_char[j]!=NULL)
-            {
-                a++;
-            }
+        printf("%s \t %d \n",word ,(*root)->count);
         }
-        if(!a)
-        {
-            *(word+index)='\0';
-            int i=0;
-            while(*(word+i)!='\0')
-            {
-                printf("%c",*(word+i));
-                i++;            
-            }
-            printf("\t %d \n",(*root)->count);
-            (*root)->end_string =false;
-        }
-    } 
+        index--;
+        *(word+index)='\0';
+        free((*root));
+        return;
+
+    }
   
     int j; 
     for (j = NUM_LETTERS-1; j >=0; j--)  
@@ -101,6 +98,13 @@ void PrintRev(node **root,char *word ,int index)
             PrintRev(&((*root)->next_char[j]),word,index+1);
         }
     }
+
+    if((*root)->end_string)
+    {
+        *(word+index)='\0';
+        printf("%s \t %d \n",word,(*root)->count);
+    }
+    free(*root);
 }
 
 bool checkEmpty(node **root)
@@ -116,51 +120,60 @@ bool checkEmpty(node **root)
     return true;
 }
 
-bool cast(char *word)
+void cast(char **word)
 {
-    int i=0;
-    while (*(word+i)!='\0')
+    int i=0,j=0;
+    char newWord[SIZE];
+    char *a=*word;
+    while (*(a+i)!='\0')
     {
-        if((*(word+i)<'a'  ||  *(word+i)>'z') && (*(word+i)<'A'  ||  *(word+i)>'Z'))
+        if(*(a+i)>='a'  &&  *(a+i)<='z')
         {
-            return false;
+            *(newWord+j++)=*(a+i);
         }
-        if(*(word+i)>='A'   &&  *(word+i)<='Z')
+        if(*(a+i)>='A'   &&  *(a+i)<='Z')
         {
-            *(word+i)=*(word+i)+32;
+            *(newWord+j++)=*(a+i)+32;
+        
         }
         i++;
     }
-    return true;
+    *(newWord+j)='\0';
+    strcpy(a,newWord);
     
 }
 
 
-// void main()
+// int main()
 // {
-//     char aa[100][100];
 //     node *root=newNode();
-//     char a1[]="ab";
-//     char a[] ="ala"; 
-//     char b[] ="bcd"; 
-//     char c[] ="alad"; 
-//     char d[] ="ab"; 
-//     char e[] ="ala"; 
-//     char f [] ="abca";
+//     char a1[]="a";
+//     char a[] ="ab"; 
+//     char b[] ="abc"; 
+//     char c[] ="b"; 
+//     char d[] ="bc"; 
+//     char e[] ="bcd"; 
+//     char f [] ="a";
+//     char a2 [] ="aa";
+//     char a3 [] ="bb";
+//     char a4 [] ="aa";
 //     char t[10];
-    
    
-//    insert(&root,a);
-//    insert(&root,b);
-//    insert(&root,c);
-//    insert(&root,d);
-//    insert(&root,e);
-//    insert(&root,f);
-//    insert(&root,a1); 
-//    PrintAll(&root,t,0); 
-//    printf("\n");
-//    frees(&root);
-
+//     insert(&root,a);
+//     insert(&root,b);
+//     insert(&root,c);
+//     insert(&root,d);
+//     insert(&root,e);
+//     insert(&root,f);
+//     insert(&root,a1);
+//     insert(&root,a2); 
+//     insert(&root,a3);
+//     insert(&root,a4);
+//     PrintAll(&root, t, 0);
+//     printf("\n");
+//     PrintRev(&root,t,0); 
+//     //frees(&root);
+//     return 0;
 
 
 // }
