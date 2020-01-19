@@ -41,20 +41,15 @@ int main(int argc , char *argv[])
                 insert(&root,word);
             }
             memset(word,0,sizeof(char)*index);
-            // free(word);
-            // char *word =(char*)malloc(sizeof(char)*2);
             *word=0;
             index=0;
         }
     }
     if(index>0)
     {
-        //cast(word);
         insert(&root,word);
-
     }
     free(word);
-         
     char *temp=(char*)malloc(cursize*sizeof(char));
     if(argc!=1)
     {
