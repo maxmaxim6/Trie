@@ -1,39 +1,61 @@
+#include "trie.h"
+#include <string.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include <string.h>
-#include "trie.h"
-#define SIZE 1000
+
 
 
 
 int main(int argc , char *argv[])
 {
     node *root=newNode();
-    char a[SIZE];
-    char temp[SIZE];
-    char b[SIZE];
-    while(fgets(a,SIZE,stdin))
+    char *word=(char*)malloc(10*sizeof(char));
+    int index=0;
+    int cursize=100;
+    char ch;
+    while(scanf("%c",&ch)==1)
     {
-        int i=0,j=0;
-        while(a[i]!='\0')
+        if(ch!=' ' && ch!='\n' && ch!='\t' && ch!='\0' && ch!=',' && ch!='.')
         {
-            if((a[i] >= 'a' && a[i] <= 'z') || (a[i] >= 'A' && a[i] <= 'Z'))
+            if(ch>='a'  &&  ch<='z')
             {
-                b[j++]+=a[i];
+                *(word+index)=ch;
             }
-            else
+            if(ch>='A'   &&  ch<='Z')
             {
-                b[j]='\0';    
-        
-                insert(&root,b);
-                memset(b,0,sizeof(b)); // reset the string
-                j=0;           
+                word[index]=ch+32;    
             }
-            i++;   
+            index++;
+            word=(char*)realloc(word,index+2);
+            if(index+2>cursize)
+            {
+                cursize=index+10;
+            }
         }
-        memset(b,0,sizeof(b));
+        else
+        {
+            word[index]=0;
+            if(index>0)
+            {
+                insert(&root,word);
+            }
+            memset(word,0,sizeof(char)*index);
+            // free(word);
+            // char *word =(char*)malloc(sizeof(char)*2);
+            *word=0;
+            index=0;
+        }
     }
+    if(index>0)
+    {
+        //cast(word);
+        insert(&root,word);
+
+    }
+    free(word);
+         
+    char *temp=(char*)malloc(cursize*sizeof(char));
     if(argc!=1)
     {
         PrintRev(&root,temp,0);
@@ -43,5 +65,6 @@ int main(int argc , char *argv[])
         PrintAll(&root,temp,0);
         frees(&root);
     }
+    free(temp);
     return 0;
 }
