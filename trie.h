@@ -3,7 +3,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#define SIZE 1000
 
 
 #define NUM_LETTERS 26
@@ -19,10 +18,9 @@ typedef struct node
 node* newNode();
 void insert( node **head , char *str);
 void PrintAll(node **root,char *word ,int index);
-void PrintRev(node **root,char *word ,int index);
-void cast(char **word);
-bool checkEmpty(node **root);
 void frees(node **root);
+void PrintRev(node **root,char *word ,int index);
+bool checkEmpty(node **root);
 
 
 
