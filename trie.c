@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include "trie.h"
+#include <stdio.h>
 
 
 node* newNode()
@@ -29,7 +29,7 @@ void insert ( node **head , char *str)
             (cur)->ch=*(str+i);      
         }
         cur=(cur)->next_char[*(str+i)-'a'];
-        i++;   
+        i++;  
         
     }
     (cur)->count++;
@@ -41,11 +41,9 @@ void PrintAll(node **root,char *word ,int index)
 {  
     if ((*root)->end_string)
     { 
-        *(word+index)='\0';
+        *(word+index)='\0';  
+        printf("%s \t %d \n",word ,(*root)->count);
         
-        printf("%s",word);
-        printf("\t %d \n",(*root)->count);
-        //(*root)->end_string =false;
     } 
   
     int j; 
@@ -80,7 +78,7 @@ void PrintRev(node **root,char *word ,int index)
         *(word+index)='\0';
         if((*root)->end_string)
         {
-        printf("%s \t %d \n",word ,(*root)->count);
+            printf("%s \t %d \n",word ,(*root)->count);
         }
         index--;
         *(word+index)='\0';
@@ -120,60 +118,3 @@ bool checkEmpty(node **root)
     return true;
 }
 
-void cast(char **word)
-{
-    int i=0,j=0;
-    char newWord[SIZE];
-    char *a=*word;
-    while (*(a+i)!='\0')
-    {
-        if(*(a+i)>='a'  &&  *(a+i)<='z')
-        {
-            *(newWord+j++)=*(a+i);
-        }
-        if(*(a+i)>='A'   &&  *(a+i)<='Z')
-        {
-            *(newWord+j++)=*(a+i)+32;
-        
-        }
-        i++;
-    }
-    *(newWord+j)='\0';
-    strcpy(a,newWord);
-    
-}
-
-
-// int main()
-// {
-//     node *root=newNode();
-//     char a1[]="a";
-//     char a[] ="ab"; 
-//     char b[] ="abc"; 
-//     char c[] ="b"; 
-//     char d[] ="bc"; 
-//     char e[] ="bcd"; 
-//     char f [] ="a";
-//     char a2 [] ="aa";
-//     char a3 [] ="bb";
-//     char a4 [] ="aa";
-//     char t[10];
-   
-//     insert(&root,a);
-//     insert(&root,b);
-//     insert(&root,c);
-//     insert(&root,d);
-//     insert(&root,e);
-//     insert(&root,f);
-//     insert(&root,a1);
-//     insert(&root,a2); 
-//     insert(&root,a3);
-//     insert(&root,a4);
-//     PrintAll(&root, t, 0);
-//     printf("\n");
-//     PrintRev(&root,t,0); 
-//     //frees(&root);
-//     return 0;
-
-
-// }
