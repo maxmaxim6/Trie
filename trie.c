@@ -42,7 +42,7 @@ void PrintAll(node **root,char *word ,int index)
     if ((*root)->end_string)
     { 
         *(word+index)='\0';  
-        printf("%s \t %d \n",word ,(*root)->count);
+        printf("%s\t%d\n",word ,(*root)->count);
         
     } 
   
@@ -78,7 +78,7 @@ void PrintRev(node **root,char *word ,int index)
         *(word+index)='\0';
         if((*root)->end_string)
         {
-            printf("%s \t %d \n",word ,(*root)->count);
+            printf("%s\t%d\n",word ,(*root)->count);
         }
         index--;
         *(word+index)='\0';
