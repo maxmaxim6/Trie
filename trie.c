@@ -100,7 +100,7 @@ void PrintRev(node **root,char *word ,int index)
     if((*root)->end_string)
     {
         *(word+index)='\0';
-        printf("%s \t %d \n",word,(*root)->count);
+        printf("%s\t%d\n",word,(*root)->count);
     }
     free(*root);
 }
